@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model CCED_Sample_App.ViewModel.LicenseSearchViewModel
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success">@TempData["SuccessMessage"]</div>
+}
+<div class="text-center">
+    <h1 class="display-4">Licenses</h1>
+    <table class="center">
+        <tr>
+            <th>
+                License Number
+            </th>
+            <th>
+                Business
+            </th>
+            
+            <th>
+                Issue Date
+            </th>
+            <th>
+                Is Active
+            </th>
+            <th>
+                View/Edit
+            </th>
+        </tr>
+        @if (Model.Licenses.Any())
+        {
+            @foreach (var license in Model.Licenses)
+            {
+                <tr>
+                    <td>
+                        @license.LicenseNumber
+                    </td>
+                    <td>
+                        @license.Name
+                    </td>
+                    <td>
+                        @license.IssueDate
+                    </td>
+                    <td>
+                        @license.IsActive
+                    </td>
+                    <td>
+                        @Html.ActionLink("View", "Details", "Home", new { id = license.Id })  | @Html.ActionLink("Edit", "Edit", "Home", new { id = license.Id })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <p>No results found.</p>
+        }
+    </table>
+</div>
